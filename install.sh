@@ -73,7 +73,7 @@ echo "Downloading Agent from  $BaseUrl"
 wget $downloadurlagent -q --show-progress
 dpkg -i fusioninventory-agent_$version\_all.deb
 
-#clear
+clear
 if $taskcollect
 then
 		echo "collect task is requested"
@@ -84,7 +84,7 @@ else
 		sleep 3
 fi
 
-#clear
+clear
 if $tasknetwork
 then
         echo "network task is requested"
@@ -99,7 +99,7 @@ fi
 
 
 
-#clear
+clear
 if $taskdeploy
 then
         echo "deploy task is requested"
@@ -115,7 +115,7 @@ fi
 
 
 
-#clear
+clear
 if $taskesx
 then
         echo "esx task is requested"
