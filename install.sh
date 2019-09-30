@@ -106,7 +106,7 @@ then
 		echo "installing dependencies"
 		apt -y install libfile-copy-recursive-perl libparallel-forkmanager-perl
 		wget $downloadurldeploy -q --show-progress
-		dpkg -i fusioninventory-agent-task-deploy$version\_all.deb
+		dpkg -i fusioninventory-agent-task-deploy_$version\_all.deb
 else
         echo "deploy task is NOT requested"
 		sleep 3
@@ -121,7 +121,7 @@ then
         echo "esx task is requested"
 		echo "installing dependencies"
 		wget $downloadurlesx -q --show-progress
-		dpkg -i fusioninventory-agent-task-esx$version\_all.deb
+		dpkg -i fusioninventory-agent-task-esx_$version\_all.deb
 else
         echo "esx task is NOT requested"
 		sleep 3
