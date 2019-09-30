@@ -49,6 +49,7 @@ shortversion="${version::5}"
 echo "Target Version is  $version"
 BaseUrl=https://github.com/fusioninventory/fusioninventory-agent/releases/download/$shortversion/
 
+read -p "Press [Enter] key to start backup..."
 
 downloadurlagent=$BaseUrl\fusioninventory-agent_$version\_all.deb
 downloadurlcollect=$BaseUrl\fusioninventory-agent-task-collect_$version\_all.deb
