@@ -104,7 +104,7 @@ if $taskdeploy
 then
         echo "deploy task is requested"
 		echo "installing dependencies"
-		apt -y install libfile-copy-recursive-perl libparallel-forkmanager-perl
+		apt -y install libfile-copy-recursive-perl  libparallel-forkmanager-perl
 		wget $downloadurldeploy -q --show-progress
 		dpkg -i fusioninventory-agent-task-deploy_$version\_all.deb
 else
