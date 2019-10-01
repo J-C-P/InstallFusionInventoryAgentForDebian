@@ -63,13 +63,13 @@ downloadurlesx=$BaseUrl\fusioninventory-agent-task-esx_$version\_all.deb
 # Setup agent
 
 # Setup dependencies for Agent Core
-apt-get -y install dmidecode hwdata ucf hdparm > FusionInventoryInstallation.log
-apt-get -y install perl libuniversal-require-perl libwww-perl libparse-edid-perl > FusionInventoryInstallation.log
-apt-get -y install libproc-daemon-perl libfile-which-perl libhttp-daemon-perl > FusionInventoryInstallation.log
-apt-get -y install libxml-treepp-perl libyaml-perl libnet-cups-perl libnet-ip-perl > FusionInventoryInstallation.log
-apt-get -y install libdigest-sha-perl libsocket-getaddrinfo-perl libtext-template-perl > FusionInventoryInstallation.log
-apt-get -y install libxml-xpath-perl > FusionInventoryInstallation.log
-apt-get -y install libwrite-net-perl > FusionInventoryInstallation.log
+apt-get -y install dmidecode hwdata ucf hdparm > FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install perl libuniversal-require-perl libwww-perl libparse-edid-perl > FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install libproc-daemon-perl libfile-which-perl libhttp-daemon-perl > FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install libxml-treepp-perl libyaml-perl libnet-cups-perl libnet-ip-perl > FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install libdigest-sha-perl libsocket-getaddrinfo-perl libtext-template-perl > FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install libxml-xpath-perl > FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install libwrite-net-perl > FusionInventoryInstallation.log 2>/dev/null
 
 echo "Downloading Agent from  $BaseUrl"
 wget $downloadurlagent -q --show-progress
@@ -94,7 +94,7 @@ if $tasknetwork
 then
         echo "network task is requested"
 		echo "installing dependencies"
-		apt -y install libnet-snmp-perl libcrypt-des-perl libnet-nbname-perl libdigest-hmac-perl > FusionInventoryInstallation.log
+		apt -y install libnet-snmp-perl libcrypt-des-perl libnet-nbname-perl libdigest-hmac-perl > FusionInventoryInstallation.log 2>/dev/null
 		wget $downloadurlnetwork -q --show-progress
 		dpkg -i fusioninventory-agent-task-network_$version\_all.deb
 else
@@ -109,7 +109,7 @@ if $taskdeploy
 then
         echo "deploy task is requested"
 		echo "installing dependencies"
-		apt -y install libmoo-perl libfile-copy-recursive-perl  libparallel-forkmanager-perl > FusionInventoryInstallation.log
+		apt -y install libmoo-perl libfile-copy-recursive-perl  libparallel-forkmanager-perl > FusionInventoryInstallation.log 2>/dev/null
 		wget $downloadurldeploy -q --show-progress
 		dpkg -i fusioninventory-agent-task-deploy_$version\_all.deb
 else
