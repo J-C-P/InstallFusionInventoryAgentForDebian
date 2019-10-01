@@ -110,7 +110,8 @@ if $taskdeploy
 then
     echo "deploy task is requested"
 	echo "installing dependencies"
-	apt -y install libmoo-perl libfile-copy-recursive-perl  libparallel-forkmanager-perl >> FusionInventoryInstallation.log 2>/dev/null
+	apt -y install libfile-copy-recursive-perl  libparallel-forkmanager-perl >> FusionInventoryInstallation.log 2>/dev/null
+	#apt -y install libmoo-perl libfile-copy-recursive-perl  libparallel-forkmanager-perl >> FusionInventoryInstallation.log 2>/dev/null
 	wget $downloadurldeploy -q --show-progress
 	dpkg -i fusioninventory-agent-task-deploy_$version\_all.deb
 else
