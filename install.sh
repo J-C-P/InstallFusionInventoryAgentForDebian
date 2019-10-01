@@ -92,7 +92,7 @@ if $tasknetwork
 then
         echo "network task is requested"
 		echo "installing dependencies"
-		apt -y install libnet-snmp-perl libcrypt-des-perl libnet-nbname-perl
+		apt -y install libnet-snmp-perl libcrypt-des-perl libnet-nbname-perl libdigest-hmac-perl
 		wget $downloadurlnetwork -q --show-progress
 		dpkg -i fusioninventory-agent-task-network_$version\_all.deb
 else
@@ -107,7 +107,7 @@ if $taskdeploy
 then
         echo "deploy task is requested"
 		echo "installing dependencies"
-		apt -y install libfile-copy-recursive-perl  libparallel-forkmanager-perl
+		apt -y install libmoo-perl libfile-copy-recursive-perl  libparallel-forkmanager-perl
 		wget $downloadurldeploy -q --show-progress
 		dpkg -i fusioninventory-agent-task-deploy_$version\_all.deb
 else
