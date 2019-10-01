@@ -32,7 +32,7 @@ then
         echo "The --taskesx parameter is used to specify if the esx task must be instaled. It is $true by default."
 	echo "The --agentconfig parameters is used to configure the agent. Use it to adapt the installation to your environment."
 	echo "   All parameters from http://fusioninventory.org/documentation/agent/man/agent.cfg.html are available."
-	echo "   Parameters have to be separated by a pipe '|' in the form of"
+	echo "   Parameters have to be separated by a pipe | in the form of"
 	echo "   server = myserver.mydomain.local/glpi/plugins/fusioninventory|httpd-trust = 192.168.0.25"
         echo "The --help parameters display this help. It superseeds all other parameter."
         exit 1
