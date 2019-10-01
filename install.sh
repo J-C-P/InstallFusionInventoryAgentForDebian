@@ -140,7 +140,7 @@ echo "Configuring agent"
 echo $agentconfig | tr '|' '\n' > /etc/fusioninventory/conf.d/config.cfg
 
 echo "Applying config"
-service fusioninventory-agent reload
+service fusioninventory-agent start
 
 echo
 echo
