@@ -72,8 +72,9 @@ apt -y install libwrite-net-perl
 echo "Downloading Agent from  $BaseUrl"
 wget $downloadurlagent -q --show-progress
 dpkg -i fusioninventory-agent_$version\_all.deb
+sleep 10
 
-clear
+#clear
 if $taskcollect
 then
 		echo "collect task is requested"
@@ -84,7 +85,9 @@ else
 		sleep 3
 fi
 
-clear
+sleep 10
+
+#clear
 if $tasknetwork
 then
         echo "network task is requested"
@@ -97,9 +100,9 @@ else
 		sleep 3
 fi
 
+sleep 10
 
-
-clear
+#clear
 if $taskdeploy
 then
         echo "deploy task is requested"
@@ -112,10 +115,9 @@ else
 		sleep 3
 fi
 
+sleep 10
 
-
-
-clear
+#clear
 if $taskesx
 then
         echo "esx task is requested"
@@ -128,4 +130,4 @@ else
 fi
 
 echo "Setup Finished".
-sleep 3
+sleep 10
