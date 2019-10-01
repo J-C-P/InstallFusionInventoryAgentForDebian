@@ -12,3 +12,4 @@ wget -O - https://raw.github.com/J-C-P/InstallFusionInventoryAgentForDebian/mast
 ```
 ## Tested on
 - Debian 10 x64 (kernel 4.19.0-6-amd64)
+- Ubuntu 18.04 LTS (4.15.0-64-generic)
