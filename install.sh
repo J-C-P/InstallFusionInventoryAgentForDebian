@@ -72,6 +72,7 @@ apt-get -y install libwrite-net-perl >> FusionInventoryInstallation.log 2>/dev/n
 
 echo "Downloading Agent from  $BaseUrl"
 wget $downloadurlagent -q --show-progress
+echo "Installing agent"
 dpkg -i fusioninventory-agent_$version\_all.deb
 sleep 2
 echo
@@ -93,7 +94,6 @@ echo
 if $tasknetwork
 then
     echo "network task is requested"
-	echo
 	echo "installing dependencies"
 	apt -y install libnet-snmp-perl libcrypt-des-perl libnet-nbname-perl libdigest-hmac-perl >> FusionInventoryInstallation.log 2>/dev/null
 	wget $downloadurlnetwork -q --show-progress
@@ -109,7 +109,6 @@ echo
 if $taskdeploy
 then
     echo "deploy task is requested"
-	echo
 	echo "installing dependencies"
 	apt -y install libmoo-perl libfile-copy-recursive-perl  libparallel-forkmanager-perl >> FusionInventoryInstallation.log 2>/dev/null
 	wget $downloadurldeploy -q --show-progress
@@ -125,7 +124,6 @@ echo
 if $taskesx
 then
     echo "esx task is requested"
-	echo
 	echo "installing dependencies"
 	wget $downloadurlesx -q --show-progress
 	dpkg -i fusioninventory-agent-task-esx_$version\_all.deb
@@ -136,16 +134,13 @@ fi
 sleep 2
 echo
 echo
-echo "Configuring agent"
 
 # Configuring agent
-#mv /etc/fusioninventory/conf.d/config.cfg /etc/fusioninventory/conf.d/config.bak -f
-
+echo "Configuring agent"
 echo $agentconfig | tr '|' '\n' > /etc/fusioninventory/conf.d/config.cfg
 
-
 echo "Applying config"
-service fusioninventory reload
+service fusioninventory-agent reload
 
 echo
 echo
