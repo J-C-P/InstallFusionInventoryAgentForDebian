@@ -40,6 +40,7 @@ taskscollect=${taskcollect:-$true}
 tasksnetwork=${tasknetwork:-$true}
 tasksdeploy=${taskdeploy:-$true}
 tasksesx=${taskesx:-$true}
+agentconfig=${agentconfig:-"server = https://myserver.mydomain.com/glpi/plugins/fusioninventory/ | no-ssl-check = 0 | httpd-trust = 192.168.0.10 | tag = example"}
 
 # Test if wget is installed.
 type wget >/dev/null 2>&1 || { echo >&2 "I require wget but it's not installed.  Aborting."; exit 1; }
@@ -129,5 +130,15 @@ else
 		sleep 3
 fi
 
-echo "Setup Finished".
 sleep 10
+
+# Configuring agent
+rm /etc/fusioninventory/config.d/config.cfg -f
+echo ${$agentconfig//|/'\n'} > /etc/fusioninventory/config.d/config.cfg
+
+echo
+echo
+echo "Setup Finished."
+
+
+
