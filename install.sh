@@ -30,11 +30,11 @@ then
         echo "The --tasknetwork parameter is used to specify if the network task must be instaled. It is $true by default."
         echo "The --taskdeploy parameter is used to specify if the deploy task must be instaled. It is $true by default."
         echo "The --taskesx parameter is used to specify if the esx task must be instaled. It is $true by default."
-	echo "The --agentconfig parameters is used to configure the agent. Use it to adapt the installation to your environment."
+	echo "The --agentconfig parameter is used to configure the agent. Use it to adapt the installation to your environment."
 	echo "   All parameters from http://fusioninventory.org/documentation/agent/man/agent.cfg.html are available."
 	echo "   Parameters have to be separated by a pipe | in the form of"
 	echo "   server = myserver.mydomain.local/glpi/plugins/fusioninventory|httpd-trust = 192.168.0.25"
-        echo "The --help parameters display this help. It superseeds all other parameter."
+        echo "The --help parameter display this help. It superseeds all other parameter."
         exit 1
 fi
 
@@ -73,9 +73,10 @@ apt-get -y install libwrite-net-perl >> FusionInventoryInstallation.log 2>/dev/n
 echo "Downloading Agent from  $BaseUrl"
 wget $downloadurlagent -q --show-progress
 dpkg -i fusioninventory-agent_$version\_all.deb
-sleep 10
+sleep 2
+echo
+echo
 
-#clear
 if $taskcollect
 then
 	echo "collect task is requested"
@@ -138,7 +139,7 @@ echo
 echo "Configuring agent"
 
 # Configuring agent
-mv /etc/fusioninventory/conf.d/config.cfg /etc/fusioninventory/conf.d/config.bak -f
+#mv /etc/fusioninventory/conf.d/config.cfg /etc/fusioninventory/conf.d/config.bak -f
 
 echo $agentconfig | tr '|' '\n' > /etc/fusioninventory/conf.d/config.cfg
 
