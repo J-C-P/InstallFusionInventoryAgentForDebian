@@ -7,11 +7,9 @@ version=${version:-2.5.1-1}
 
 # Get named parameters
 while [ $# -gt 0 ]; do
-
    if [[ $1 == *"--"* ]]; then
         param="${1/--/}"
         declare $param="$2"
-       # echo $1 $2 // Optional to see the parameter:value result
    fi
   shift
 done
@@ -33,7 +31,10 @@ then
         echo "The --taskdeploy parameter is used to specify if the deploy task must be instaled. It is $true by default."
         echo "The --taskesx parameter is used to specify if the esx task must be instaled. It is $true by default."
 	echo "The --agentconfig parameters is used to configure the agent. Use it to adapt the installation to your environment."
-        echo "The --help parameters display this help."
+	echo "   All parameters from http://fusioninventory.org/documentation/agent/man/agent.cfg.html are available."
+	echo "   Parameters have to be separated by a pipe '|' in the form of"
+	echo "   ""server = myserver.mydomain.local/glpi/plugins/fusioninventory|httpd-trust = 192.168.0.25"""
+        echo "The --help parameters display this help. It superseeds all other parameter."
         exit 1
 fi
 
@@ -41,7 +42,7 @@ taskscollect=${taskcollect:-$true}
 tasksnetwork=${tasknetwork:-$true}
 tasksdeploy=${taskdeploy:-$true}
 tasksesx=${taskesx:-$true}
-agentconfig=${agentconfig:-"server = https://myserver.mydomain.com/glpi/plugins/fusioninventory/ | no-ssl-check = 0 | httpd-trust = 192.168.0.10 | tag = example"}
+agentconfig=${agentconfig:-"server = https://myserver.mydomain.com/glpi/plugins/fusioninventory/|no-ssl-check 1""}
 
 # Test if wget is installed.
 type wget >/dev/null 2>&1 || { echo >&2 "I require wget but it's not installed.  Aborting."; exit 1; }
@@ -49,27 +50,25 @@ type wget >/dev/null 2>&1 || { echo >&2 "I require wget but it's not installed. 
 shortversion="${version::5}"
 
 echo "Target Version is  $version"
+
 BaseUrl=https://github.com/fusioninventory/fusioninventory-agent/releases/download/$shortversion/
-
-read -p "Press [Enter] key to start backup..."
-
 downloadurlagent=$BaseUrl\fusioninventory-agent_$version\_all.deb
 downloadurlcollect=$BaseUrl\fusioninventory-agent-task-collect_$version\_all.deb
 downloadurlnetwork=$BaseUrl\fusioninventory-agent-task-network_$version\_all.deb
 downloadurldeploy=$BaseUrl\fusioninventory-agent-task-deploy_$version\_all.deb
 downloadurlesx=$BaseUrl\fusioninventory-agent-task-esx_$version\_all.deb
 
-
 # Setup agent
 
 # Setup dependencies for Agent Core
-apt-get -y install dmidecode hwdata ucf hdparm > FusionInventoryInstallation.log 2>/dev/null
-apt-get -y install perl libuniversal-require-perl libwww-perl libparse-edid-perl > FusionInventoryInstallation.log 2>/dev/null
-apt-get -y install libproc-daemon-perl libfile-which-perl libhttp-daemon-perl > FusionInventoryInstallation.log 2>/dev/null
-apt-get -y install libxml-treepp-perl libyaml-perl libnet-cups-perl libnet-ip-perl > FusionInventoryInstallation.log 2>/dev/null
-apt-get -y install libdigest-sha-perl libsocket-getaddrinfo-perl libtext-template-perl > FusionInventoryInstallation.log 2>/dev/null
-apt-get -y install libxml-xpath-perl > FusionInventoryInstallation.log 2>/dev/null
-apt-get -y install libwrite-net-perl > FusionInventoryInstallation.log 2>/dev/null
+echo "installing agent dependencies"
+apt-get -y install dmidecode hwdata ucf hdparm >> FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install perl libuniversal-require-perl libwww-perl libparse-edid-perl >> FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install libproc-daemon-perl libfile-which-perl libhttp-daemon-perl >> FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install libxml-treepp-perl libyaml-perl libnet-cups-perl libnet-ip-perl >> FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install libdigest-sha-perl libsocket-getaddrinfo-perl libtext-template-perl >> FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install libxml-xpath-perl >> FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install libwrite-net-perl >> FusionInventoryInstallation.log 2>/dev/null
 
 echo "Downloading Agent from  $BaseUrl"
 wget $downloadurlagent -q --show-progress
@@ -79,47 +78,48 @@ sleep 10
 #clear
 if $taskcollect
 then
-		echo "collect task is requested"
-		wget $downloadurlcollect -q --show-progress
-		dpkg -i fusioninventory-agent-task-collect_$version\_all.deb
+	echo "collect task is requested"
+	wget $downloadurlcollect -q --show-progress
+	dpkg -i fusioninventory-agent-task-collect_$version\_all.deb
 else
         echo "collect task is NOT requested"
-		sleep 3
 fi
 
-sleep 10
+sleep 2
+echo
+echo
 
-#clear
 if $tasknetwork
 then
         echo "network task is requested"
-		echo "installing dependencies"
-		apt -y install libnet-snmp-perl libcrypt-des-perl libnet-nbname-perl libdigest-hmac-perl > FusionInventoryInstallation.log 2>/dev/null
-		wget $downloadurlnetwork -q --show-progress
-		dpkg -i fusioninventory-agent-task-network_$version\_all.deb
+	echo "installing dependencies"
+	apt -y install libnet-snmp-perl libcrypt-des-perl libnet-nbname-perl libdigest-hmac-perl >> FusionInventoryInstallation.log 2>/dev/null
+	wget $downloadurlnetwork -q --show-progress
+	dpkg -i fusioninventory-agent-task-network_$version\_all.deb
 else
         echo "network task is NOT requested"
-		sleep 3
 fi
 
-sleep 10
+sleep 2
+echo
+echo
 
-#clear
 if $taskdeploy
 then
         echo "deploy task is requested"
-		echo "installing dependencies"
-		apt -y install libmoo-perl libfile-copy-recursive-perl  libparallel-forkmanager-perl > FusionInventoryInstallation.log 2>/dev/null
-		wget $downloadurldeploy -q --show-progress
-		dpkg -i fusioninventory-agent-task-deploy_$version\_all.deb
+	echo "installing dependencies"
+	apt -y install libmoo-perl libfile-copy-recursive-perl  libparallel-forkmanager-perl >> FusionInventoryInstallation.log 2>/dev/null
+	wget $downloadurldeploy -q --show-progress
+	dpkg -i fusioninventory-agent-task-deploy_$version\_all.deb
 else
         echo "deploy task is NOT requested"
 		sleep 3
 fi
 
-sleep 10
+sleep 2
+echo
+echo
 
-#clear
 if $taskesx
 then
         echo "esx task is requested"
@@ -131,7 +131,10 @@ else
 		sleep 3
 fi
 
-sleep 10
+sleep 2
+echo
+echo
+echo "Configuring agent"
 
 # Configuring agent
 mv /etc/fusioninventory/conf.d/config.cfg /etc/fusioninventory/conf.d/config.bak -f
@@ -139,11 +142,13 @@ mv /etc/fusioninventory/conf.d/config.cfg /etc/fusioninventory/conf.d/config.bak
 echo $agentconfig | tr '|' '\n' > /etc/fusioninventory/conf.d/config.cfg
 
 
-
+echo "Applying config"
+service fusioninventory reload
 
 echo
 echo
 echo "Setup Finished."
+echo "You could find the dependicies installation log in FusionInventoryInstallation.log"
 
 
 
