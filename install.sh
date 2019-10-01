@@ -32,6 +32,7 @@ then
         echo "The --tasknetwork parameter is used to specify if the network task must be instaled. It is $true by default."
         echo "The --taskdeploy parameter is used to specify if the deploy task must be instaled. It is $true by default."
         echo "The --taskesx parameter is used to specify if the esx task must be instaled. It is $true by default."
+	echo "The --agentconfig parameters is used to configure the agent. Use it to adapt the installation to your environment."
         echo "The --help parameters display this help."
         exit 1
 fi
@@ -62,13 +63,13 @@ downloadurlesx=$BaseUrl\fusioninventory-agent-task-esx_$version\_all.deb
 # Setup agent
 
 # Setup dependencies for Agent Core
-apt -y install dmidecode hwdata ucf hdparm
-apt -y install perl libuniversal-require-perl libwww-perl libparse-edid-perl
-apt -y install libproc-daemon-perl libfile-which-perl libhttp-daemon-perl
-apt -y install libxml-treepp-perl libyaml-perl libnet-cups-perl libnet-ip-perl
-apt -y install libdigest-sha-perl libsocket-getaddrinfo-perl libtext-template-perl
-apt -y install libxml-xpath-perl
-apt -y install libwrite-net-perl
+apt -y install dmidecode hwdata ucf hdparm > FusionInventoryInstallation.log
+apt -y install perl libuniversal-require-perl libwww-perl libparse-edid-perl > FusionInventoryInstallation.log
+apt -y install libproc-daemon-perl libfile-which-perl libhttp-daemon-perl > FusionInventoryInstallation.log
+apt -y install libxml-treepp-perl libyaml-perl libnet-cups-perl libnet-ip-perl > FusionInventoryInstallation.log
+apt -y install libdigest-sha-perl libsocket-getaddrinfo-perl libtext-template-perl > FusionInventoryInstallation.log
+apt -y install libxml-xpath-perl > FusionInventoryInstallation.log
+apt -y install libwrite-net-perl > FusionInventoryInstallation.log
 
 echo "Downloading Agent from  $BaseUrl"
 wget $downloadurlagent -q --show-progress
@@ -93,7 +94,7 @@ if $tasknetwork
 then
         echo "network task is requested"
 		echo "installing dependencies"
-		apt -y install libnet-snmp-perl libcrypt-des-perl libnet-nbname-perl libdigest-hmac-perl
+		apt -y install libnet-snmp-perl libcrypt-des-perl libnet-nbname-perl libdigest-hmac-perl > FusionInventoryInstallation.log
 		wget $downloadurlnetwork -q --show-progress
 		dpkg -i fusioninventory-agent-task-network_$version\_all.deb
 else
@@ -108,7 +109,7 @@ if $taskdeploy
 then
         echo "deploy task is requested"
 		echo "installing dependencies"
-		apt -y install libmoo-perl libfile-copy-recursive-perl  libparallel-forkmanager-perl
+		apt -y install libmoo-perl libfile-copy-recursive-perl  libparallel-forkmanager-perl > FusionInventoryInstallation.log
 		wget $downloadurldeploy -q --show-progress
 		dpkg -i fusioninventory-agent-task-deploy_$version\_all.deb
 else
@@ -134,7 +135,7 @@ sleep 10
 
 # Configuring agent
 rm /etc/fusioninventory/config.d/config.cfg -f
-echo ${$agentconfig//|/'\n'} > /etc/fusioninventory/config.d/config.cfg
+echo ${$agentconfig//'|'/'\n'} > /etc/fusioninventory/config.d/config.cfg
 
 echo
 echo
