@@ -63,13 +63,13 @@ downloadurlesx=$BaseUrl\fusioninventory-agent-task-esx_$version\_all.deb
 # Setup agent
 
 # Setup dependencies for Agent Core
-apt -y install dmidecode hwdata ucf hdparm > FusionInventoryInstallation.log
-apt -y install perl libuniversal-require-perl libwww-perl libparse-edid-perl > FusionInventoryInstallation.log
-apt -y install libproc-daemon-perl libfile-which-perl libhttp-daemon-perl > FusionInventoryInstallation.log
-apt -y install libxml-treepp-perl libyaml-perl libnet-cups-perl libnet-ip-perl > FusionInventoryInstallation.log
-apt -y install libdigest-sha-perl libsocket-getaddrinfo-perl libtext-template-perl > FusionInventoryInstallation.log
-apt -y install libxml-xpath-perl > FusionInventoryInstallation.log
-apt -y install libwrite-net-perl > FusionInventoryInstallation.log
+apt-get -y install dmidecode hwdata ucf hdparm > FusionInventoryInstallation.log
+apt-get -y install perl libuniversal-require-perl libwww-perl libparse-edid-perl > FusionInventoryInstallation.log
+apt-get -y install libproc-daemon-perl libfile-which-perl libhttp-daemon-perl > FusionInventoryInstallation.log
+apt-get -y install libxml-treepp-perl libyaml-perl libnet-cups-perl libnet-ip-perl > FusionInventoryInstallation.log
+apt-get -y install libdigest-sha-perl libsocket-getaddrinfo-perl libtext-template-perl > FusionInventoryInstallation.log
+apt-get -y install libxml-xpath-perl > FusionInventoryInstallation.log
+apt-get -y install libwrite-net-perl > FusionInventoryInstallation.log
 
 echo "Downloading Agent from  $BaseUrl"
 wget $downloadurlagent -q --show-progress
@@ -135,7 +135,7 @@ sleep 10
 
 # Configuring agent
 rm /etc/fusioninventory/config.d/config.cfg -f
-echo ${$agentconfig//'|'/'\n'} > /etc/fusioninventory/config.d/config.cfg
+echo ${agentconfig//'|'/'\n'} > /etc/fusioninventory/config.d/config.cfg
 
 echo
 echo
