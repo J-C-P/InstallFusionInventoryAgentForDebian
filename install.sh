@@ -91,7 +91,8 @@ echo
 
 if $tasknetwork
 then
-        echo "network task is requested"
+    echo "network task is requested"
+	echo
 	echo "installing dependencies"
 	apt -y install libnet-snmp-perl libcrypt-des-perl libnet-nbname-perl libdigest-hmac-perl >> FusionInventoryInstallation.log 2>/dev/null
 	wget $downloadurlnetwork -q --show-progress
@@ -106,14 +107,14 @@ echo
 
 if $taskdeploy
 then
-        echo "deploy task is requested"
+    echo "deploy task is requested"
+	echo
 	echo "installing dependencies"
 	apt -y install libmoo-perl libfile-copy-recursive-perl  libparallel-forkmanager-perl >> FusionInventoryInstallation.log 2>/dev/null
 	wget $downloadurldeploy -q --show-progress
 	dpkg -i fusioninventory-agent-task-deploy_$version\_all.deb
 else
         echo "deploy task is NOT requested"
-		sleep 3
 fi
 
 sleep 2
@@ -122,13 +123,13 @@ echo
 
 if $taskesx
 then
-        echo "esx task is requested"
-		echo "installing dependencies"
-		wget $downloadurlesx -q --show-progress
-		dpkg -i fusioninventory-agent-task-esx_$version\_all.deb
+    echo "esx task is requested"
+	echo
+	echo "installing dependencies"
+	wget $downloadurlesx -q --show-progress
+	dpkg -i fusioninventory-agent-task-esx_$version\_all.deb
 else
         echo "esx task is NOT requested"
-		sleep 3
 fi
 
 sleep 2
@@ -148,7 +149,7 @@ service fusioninventory reload
 echo
 echo
 echo "Setup Finished."
-echo "You could find the dependicies installation log in FusionInventoryInstallation.log"
+echo "You could find the dependencies installation log in FusionInventoryInstallation.log"
 
 
 
