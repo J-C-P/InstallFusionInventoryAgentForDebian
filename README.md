@@ -10,6 +10,13 @@ To install FusionInventory agent on Debian or Ubuntu, check the options (end of 
 ```
 wget -O - https://raw.github.com/J-C-P/InstallFusionInventoryAgentForDebian/master/install.sh | bash -s -- --version 2.5.1-1 --taskcollect true --tasknetwork true --tasknetwork true --taskesx true --agentconfig "server = https://myserver.mydomain.local/glpi/plugins/fusioninventory|no-ssl-check = 1|httpd-trust = 192.168.0.25"
 ```
+
 ## Tested on
 - Debian 10 x64 (kernel 4.19.0-6-amd64)
 - Ubuntu 18.04 LTS (4.15.0-64-generic)
+
+## To get help
+run
+```
+wget -O - https://raw.github.com/J-C-P/InstallFusionInventoryAgentForDebian/master/install.sh | bash -s -- --help
+```
