@@ -134,8 +134,12 @@ fi
 sleep 10
 
 # Configuring agent
-rm /etc/fusioninventory/config.d/config.cfg -f
-echo ${agentconfig//'|'/'\n'} > /etc/fusioninventory/config.d/config.cfg
+mv /etc/fusioninventory/conf.d/config.cfg /etc/fusioninventory/conf.d/config.bak -f
+
+echo $agentconfig | tr '|' '\n' > /etc/fusioninventory/conf.d/config.cfg
+
+
+
 
 echo
 echo
