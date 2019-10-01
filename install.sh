@@ -42,7 +42,7 @@ taskscollect=${taskcollect:-$true}
 tasksnetwork=${tasknetwork:-$true}
 tasksdeploy=${taskdeploy:-$true}
 tasksesx=${taskesx:-$true}
-agentconfig=${agentconfig:-"server = https://myserver.mydomain.com/glpi/plugins/fusioninventory/|no-ssl-check 1""}
+agentconfig=${agentconfig:-"server = https://myserver.mydomain.com/glpi/plugins/fusioninventory/|no-ssl-check 1"}
 
 # Test if wget is installed.
 type wget >/dev/null 2>&1 || { echo >&2 "I require wget but it's not installed.  Aborting."; exit 1; }
