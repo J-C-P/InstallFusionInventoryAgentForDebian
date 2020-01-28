@@ -2,7 +2,7 @@
 
 # Set default value for parameters
 # Change it accoring to your needs. It is the default value used if no --version parameter is used.
-version=${version:-2.5.1-1}
+version=${version:-2.5.2-1}
 
 
 # Get named parameters
