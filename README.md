@@ -8,7 +8,7 @@ Script to make the FusionInventory agent installation unattended on Debian and U
 ## How to
 To install FusionInventory agent on Debian or Ubuntu, check the options (end of the line) and execute 
 ```
-wget -O - https://raw.github.com/J-C-P/InstallFusionInventoryAgentForDebian/master/install-deb.sh | bash -s -- --version 2.5.2-1 --taskcollect true --tasknetwork true --taskdeploy true --taskesx true --agentconfig "server = https://myserver.mydomain.local/glpi/plugins/fusioninventory|no-ssl-check = 1|httpd-trust = 192.168.0.25"
+wget -O - https://raw.github.com/J-C-P/InstallFusionInventoryAgentForDebian/master/install-deb.sh | bash -s -- --version 2.6-1 --taskcollect true --tasknetwork true --taskdeploy true --taskesx true --agentconfig "server = https://myserver.mydomain.local/glpi/plugins/fusioninventory|no-ssl-check = 1|httpd-trust = 192.168.0.25"
 ```
 
 ## Tested on
