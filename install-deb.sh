@@ -70,7 +70,7 @@ apt-get -y install libxml-treepp-perl libyaml-perl libnet-cups-perl libnet-ip-pe
 apt-get -y install libdigest-sha-perl libsocket-getaddrinfo-perl libtext-template-perl >> FusionInventoryInstallation.log 2>/dev/null
 apt-get -y install libxml-xpath-perl >> FusionInventoryInstallation.log 2>/dev/null
 apt-get -y install libwrite-net-perl >> FusionInventoryInstallation.log 2>/dev/null
-apt-get -y install llibyaml-tiny-perl >> FusionInventoryInstallation.log 2>/dev/null
+apt-get -y install libyaml-tiny-perl >> FusionInventoryInstallation.log 2>/dev/null
 
 echo "Downloading Agent from  $BaseUrl"
 wget $downloadurlagent -q --show-progress
