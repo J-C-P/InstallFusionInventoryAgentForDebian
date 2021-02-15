@@ -47,9 +47,10 @@ agentconfig=${agentconfig:-"server = https://myserver.mydomain.com/glpi/plugins/
 # Test if wget is installed.
 type wget >/dev/null 2>&1 || { echo >&2 "I require wget but it's not installed.  Aborting."; exit 1; }
 
-shortversion="${version::5}"
+shortversion=$(echo "$version" |cut -d'-' -f1 )
 
 echo "Target Version is  $version"
+echo "Target short version is $shortversion"
 
 BaseUrl=https://github.com/fusioninventory/fusioninventory-agent/releases/download/$shortversion/
 downloadurlagent=$BaseUrl\fusioninventory-agent_$version\_all.deb
